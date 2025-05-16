@@ -1,3 +1,10 @@
+import WebSocket from 'ws';
+import { handleRegistration } from './userHandler';
+import { handleCreateRoom } from './roomHandler';
+import { handleJoinRoom } from './roomHandler';
+import { handleAddShips } from './shipHandler';
+import { handleAttack, handleRandomAttack } from './gameHandler';
+
 export function handleMessage(ws: WebSocket, message: any) {
   switch (message.type) {
     case 'reg':
@@ -12,8 +19,11 @@ export function handleMessage(ws: WebSocket, message: any) {
       return handleAttack(ws, message);
     case 'randomAttack':
       return handleRandomAttack(ws, message);
-    // ...
     default:
-      ws.send(JSON.stringify({ type: 'error', data: { message: 'Unknown command' }, id: 0 }));
+      ws.send(JSON.stringify({
+        type: 'error',
+        data: { message: 'Unknown command' },
+        id: 0,
+      }));
   }
 }
