@@ -25,6 +25,23 @@ export const roomStore = {
     return rooms.filter(room => room.roomUsers.length === 1);
   },
 
+    getRoom(roomId: number | string): Room | undefined {
+    return rooms.find(room => room.roomId === roomId);
+  },
+
+  addUserToRoom(roomId: number | string, player: PlayerInfo): boolean {
+    const room = rooms.find(r => r.roomId === roomId);
+    if (room && room.roomUsers.length < 2) {
+      room.roomUsers.push(player);
+      return true;
+    }
+    return false;
+  },
+
+  removeRoom(roomId: number | string): void {
+    rooms = rooms.filter(room => room.roomId !== roomId);
+  },
+
   getAll(): Room[] {
     return rooms;
   },
