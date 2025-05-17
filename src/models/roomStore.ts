@@ -1,6 +1,9 @@
+import { sessions } from '../db/inMemoryDb';
+
 type PlayerInfo = {
   name: string;
   index: number | string;
+  ships?: any[];
 };
 
 type Room = {
@@ -38,6 +41,14 @@ export const roomStore = {
     return false;
   },
 
+  getRoomById(roomId: number | string): Room | undefined {
+  return rooms.find(room => room.roomId === roomId);
+  },
+
+  getSocketByPlayerIndex(index: number | string): WebSocket | null {
+  return sessions.get(index)?.socket || null;
+  },
+  
   removeRoom(roomId: number | string): void {
     rooms = rooms.filter(room => room.roomId !== roomId);
   },
