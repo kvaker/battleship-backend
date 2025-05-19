@@ -3,7 +3,7 @@ import { handleRegistration } from './regHandler.js';
 import { handleCreateRoom } from './roomHandler';
 import { handleJoinRoom } from './roomHandler';
 import { handleAddShips } from './shipHandler';
-// import { handleAttack, handleRandomAttack } from './gameHandler';
+import { handleAttack, handleRandomAttack } from './gameHandler';
 
 export function handleMessage(ws: WebSocket, message: any) {
   switch (message.type) {
@@ -15,10 +15,10 @@ export function handleMessage(ws: WebSocket, message: any) {
       return handleJoinRoom(ws, message);
     case 'add_ships':
       return handleAddShips(ws, message);
-    // case 'attack':
-    //   return handleAttack(ws, message);
-    // case 'randomAttack':
-    //   return handleRandomAttack(ws, message);
+    case 'attack':
+      return handleAttack(ws, message);
+    case 'randomAttack':
+      return handleRandomAttack(ws, message);
     default:
       ws.send(JSON.stringify({
         type: 'error',
