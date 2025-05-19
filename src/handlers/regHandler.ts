@@ -1,5 +1,6 @@
 import { WebSocket } from 'ws';
 import { registerUser } from '../db/userStore.js';
+import { sessions } from '../db/inMemoryDb.js';
 
 export function handleRegistration(ws: WebSocket, message: any) {
   const { name, password } = message.data;
@@ -16,6 +17,14 @@ export function handleRegistration(ws: WebSocket, message: any) {
     },
     id: 0,
   };
+
+  if (user && !errorText) {
+    sessions.set(user.index, {
+      name,
+      index: user.index,
+      socket: ws
+    });
+  }
 
   ws.send(JSON.stringify(response));
 }
