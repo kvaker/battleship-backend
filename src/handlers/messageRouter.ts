@@ -11,7 +11,7 @@ export function handleMessage(ws: WebSocket, message: any) {
       return handleRegistration(ws, message);
     case 'create_room':
       return handleCreateRoom(ws, message);
-    case 'join_room':
+    case 'add_user_to_room':
       return handleJoinRoom(ws, message);
     case 'add_ships':
       return handleAddShips(ws, message);

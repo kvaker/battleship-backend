@@ -73,7 +73,7 @@ export function handleCreateRoom(ws: WebSocket, message: any) {
       const userSession = sessions.get(user.index);
       if (userSession) {
         userSession.socket.send(JSON.stringify({
-          type: 'start_game',
+          type: 'create_game',
           data: { roomId, players: updatedRoom.roomUsers },
           id: 0,
         }));
